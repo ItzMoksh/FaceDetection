@@ -1,4 +1,4 @@
-import IntegralImage as ii
+import chkii as ii
 
 
 def enum(**enums):
