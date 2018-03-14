@@ -1,4 +1,4 @@
-import violajones.IntegralImage as ii
+import IntegralImage as ii
 
 
 def enum(**enums):
@@ -9,26 +9,8 @@ FeatureTypes = [FeatureType.TWO_VERTICAL, FeatureType.TWO_HORIZONTAL, FeatureTyp
 
 
 class HaarLikeFeature(object):
-    """
-    Class representing a haar-like feature.
-    """
 
     def __init__(self, feature_type, position, width, height, threshold, polarity):
-        """
-        Creates a new haar-like feature.
-        :param feature_type: Type of new feature, see FeatureType enum
-        :type feature_type: violajonse.HaarLikeFeature.FeatureTypes
-        :param position: Top left corner where the feature begins (x, y)
-        :type position: (int, int)
-        :param width: Width of the feature
-        :type width: int
-        :param height: Height of the feature
-        :type height: int
-        :param threshold: Feature threshold
-        :type threshold: float
-        :param polarity: polarity of the feature -1 or 1
-        :type polarity: int
-        """
         self.type = feature_type
         self.top_left = position
         self.bottom_right = (position[0] + width, position[1] + height)
@@ -39,13 +21,7 @@ class HaarLikeFeature(object):
         self.weight = 1
     
     def get_score(self, int_img):
-        """
-        Get score for given integral image array.
-        :param int_img: Integral image array
-        :type int_img: numpy.ndarray
-        :return: Score for given feature
-        :rtype: float
-        """
+      
         score = 0
         if self.type == FeatureType.TWO_VERTICAL:
             first = ii.sum_region(int_img, self.top_left, (self.top_left[0] + self.width, int(self.top_left[1] + self.height / 2)))
@@ -77,13 +53,6 @@ class HaarLikeFeature(object):
             score = first - second - third + fourth
         return score
     
-    def get_vote(self, int_img):
-        """
-        Get vote of this feature for given integral image.
-        :param int_img: Integral image array
-        :type int_img: numpy.ndarray
-        :return: 1 iff this feature votes positively, otherwise -1
-        :rtype: int
-        """
-        score = self.get_score(int_img)
-        return self.weight * (1 if score < self.polarity * self.threshold else -1)
+    #def get_vote(self, int_img):
+   #
+    #    
